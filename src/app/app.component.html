@@ -1,6 +1,37 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="projectname">Projectname</label>
+          <input type="text" id="projectname" class="form-control" formControlName="projectname">
+          <span class="help-block"
+            *ngIf="!projectForm.get('projectname').valid && projectForm.get('projectname').touched">
+            <span *ngIf="projectForm.get('projectname').hasError['nameIsForbidden']">
+              This project name is forbidden!
+            </span>
+            <span *ngIf="projectForm.get('projectname').hasError['required']">
+              This field is required!
+            </span>
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="email">email</label>
+          <input type="text" id="email" class="form-control" formControlName="email">
+          <span class="help-block" *ngIf="!projectForm.get('email').valid && projectForm.get('email').touched">Please
+            enter a valid email address</span>
+        </div>
+
+        <div class="for-group">
+          <label for="status">Project Status</label>
+          <select id="status">
+            <option *ngFor="let status of statuses">{{ status }}</option>
+        </select>
+      </div>
+
+      <button class="btn btn-primary" type="submit">Submit</button>
+      </form>
       <!--
           Create a Form with the following Controls and Validators
           1) Project Name (should not be empty)
